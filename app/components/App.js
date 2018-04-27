@@ -27,10 +27,10 @@ module.exports = {
             <Label :text="content.message" class="title" textAlignment="center" />
             </v-template>
         </ListView>
-        <Button class="btn btn-primary" @tap="startListening">Start Listening</Button>
-        <Button class="btn btn-primary" @tap="stopListening">Stop Listening</Button>
+        <Button class="btn btn-primary" @tap="startListening">Beginne zuzuhören</Button>
+        <Button class="btn btn-primary" @tap="stopListening">Hör auf zuzuhören</Button>
 
-        <Button class="btn btn-primary" @tap="readContent">Read Content</Button>
+        <Button class="btn btn-primary" @tap="readContent">Inhalt lesen</Button>
         <ActivityIndicator :busy="isListening" />
         <Label :text="transcription" class="title" textAlignment="center" />
         </StackLayout>
@@ -45,16 +45,16 @@ module.exports = {
         transcription: "",
         option: "",
         contents: [
-            { message: "Welcome to Chef's Kitchen!" },
-            { message: "What do you want to check out today?" },
-            { message: "Recipes? or Cooking Tips?" }
+            { message: "Willkommen in der Kochküche" },
+            { message: "Was möchtest du heute auschecken?" },
+            { message: "Rezepte? oder Kochtipps?" }
         ],
         speakOptions: {
             text: "", /// *** required ***
             speakRate: 0.5, // optional - default is 1.0
             pitch: 1.0, // optional - default is 1.0
             volume: 1.0, // optional - default is 1.0
-            locale: "en-GB", // optional - default is system locale,
+            locale: "de-DE", // optional - default is system locale,
             finishedCallback: this.finishedSpeaking // optional
         }
       };
@@ -110,7 +110,7 @@ module.exports = {
                     this.readContent();
                   },
                   returnPartialResults: false,
-                  locale: "en-US"
+                  locale: "de-DE"
                 })
                 .then(
                   started => {},
@@ -142,12 +142,12 @@ module.exports = {
           var message = "";
     
           if(this.option.length > 0) {
-            if(this.option.toUpperCase().trim() == "Recipes".toUpperCase()) {
-              message = "You have selected Recipes."
-            } else if (this.option.toUpperCase().trim() == "Cooking Tips".toUpperCase()) {
-              message = "You have selected Cooking Tips."
+            if(this.option.toUpperCase().trim() == "Rezepte".toUpperCase()) {
+              message = "Sie haben Rezepte ausgewählt."
+            } else if (this.option.toUpperCase().trim() == "Koch Tipps".toUpperCase()) {
+              message = "Sie haben Kochtipps ausgewählt."
             } else {
-              message = "Sorry I don't have that option available for you."
+              message = "Entschuldigung, ich habe diese Option nicht für dich verfügbar."
             }
     
           } else if(this.contents.length) {
