@@ -27,10 +27,10 @@ module.exports = {
             <Label :text="content.message" class="title" textAlignment="center" />
             </v-template>
         </ListView>
-        <Button class="btn btn-primary" @tap="startListening">Beginne zuzuhören</Button>
-        <Button class="btn btn-primary" @tap="stopListening">Hör auf zuzuhören</Button>
+        <Button class="btn btn-primary" @tap="startListening">Start Listening</Button>
+        <Button class="btn btn-primary" @tap="stopListening">Stop Listening</Button>
 
-        <Button class="btn btn-primary" @tap="readContent">Inhalt lesen</Button>
+        <Button class="btn btn-primary" @tap="readContent">Read Content</Button>
         <ActivityIndicator :busy="isListening" />
         <Label :text="transcription" class="title" textAlignment="center" />
         </StackLayout>
@@ -45,16 +45,16 @@ module.exports = {
         transcription: "",
         option: "",
         contents: [
-            { message: "Willkommen in der Kochküche" },
-            { message: "Was möchtest du heute auschecken?" },
-            { message: "Rezepte? oder Kochtipps?" }
+            { message: "Welcome to Chef's Kitchen!" },
+            { message: "What do you want to check out today?" },
+            { message: "Recipes? or Cooking Tips?" }
         ],
         speakOptions: {
             text: "", /// *** required ***
             speakRate: 0.5, // optional - default is 1.0
             pitch: 1.0, // optional - default is 1.0
             volume: 1.0, // optional - default is 1.0
-            locale: "de-DE", // optional - default is system locale,
+            locale: "en-US", // optional - default is system locale,
             finishedCallback: this.finishedSpeaking // optional
         }
       };
@@ -86,7 +86,7 @@ module.exports = {
             console.log(available ? "YES!" : "NO");
           });
     
-          //this.readContent();
+          this.readContent();
         },
         startListening() {
           if(this.isListening || this.isSpeaking) return;
@@ -109,8 +109,8 @@ module.exports = {
                     this.isListening = false;
                     this.readContent();
                   },
-                  returnPartialResults: false,
-                  locale: "de-DE"
+                  returnPartialResults: true,
+                  locale: "en-US"
                 })
                 .then(
                   started => {},
@@ -142,12 +142,12 @@ module.exports = {
           var message = "";
     
           if(this.option.length > 0) {
-            if(this.option.toUpperCase().trim() == "Rezepte".toUpperCase()) {
-              message = "Sie haben Rezepte ausgewählt."
-            } else if (this.option.toUpperCase().trim() == "Koch Tipps".toUpperCase()) {
-              message = "Sie haben Kochtipps ausgewählt."
+            if(this.option.toUpperCase().trim() == "Recipes".toUpperCase()) {
+              message = "You have selected Recipes."
+            } else if (this.option.toUpperCase().trim() == "Cooking Tips".toUpperCase()) {
+              message = "You have selected Cooking Tips."
             } else {
-              message = "Entschuldigung, ich habe diese Option nicht für dich verfügbar."
+              message = "Sorry I don't have that option available for you."
             }
     
           } else if(this.contents.length) {
